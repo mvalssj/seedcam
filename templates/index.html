@@ -1,0 +1,47 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard - Câmeras Cadastradas</title>
+    <!-- Adicione o link para o arquivo de estilos do Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        /* Estilos personalizados (se houver) podem ser adicionados aqui */
+    </style>
+</head>
+<body>
+    <div class="container mt-4">
+        <h1 class="mb-4">Dashboard - Câmeras Cadastradas</h1>
+        <form method="post">
+            <div class="form-group">
+                <label for="ip">IP da câmera:</label>
+                <input type="text" class="form-control" id="ip" name="ip" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Adicionar Câmera</button>
+        </form>
+
+        <div class="row mt-4">
+            {% for camera in cameras %}
+            <div class="col-md-3 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Câmera {{ loop.index }}</h5>
+                        <img src="{{ url_for('video_feed', index=loop.index) }}" class="img-fluid" alt="Camera Image">
+                        <form method="post" action="{{ url_for('remove_camera', index=loop.index) }}">
+                            <button type="submit" class="btn btn-danger mt-2">Remover</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            {% if loop.index % 4 == 0 %}
+        </div>
+        <div class="row mt-4">
+            {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- Adicione os scripts do Bootstrap no final do corpo da página para melhor desempenho -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

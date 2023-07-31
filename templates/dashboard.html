@@ -1,0 +1,35 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard - Câmeras Cadastradas</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>Dashboard - Câmeras Cadastradas</h1>
+    <table>
+        {% for i in range(0, cameras|length, 4) %}
+        <tr>
+            {% for camera in cameras[i:i+4] %}
+            <td>
+                <img src="{{ url_for('video_feed', index=loop.index) }}" width="300" height="200">
+                <form method="post" action="{{ url_for('remove_camera', index=loop.index) }}">
+                    <button type="submit">Remover</button>
+                </form>
+            </td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
